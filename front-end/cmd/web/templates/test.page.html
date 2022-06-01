@@ -1,0 +1,138 @@
+{{template "base" .}} {{define "content" }}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="mt-5">Test microservices</h1>
+      <hr />
+      <button id="brokerBtn" class="btn btn-outline-secondary">
+        Test Broker
+      </button>
+      <button id="authBtn" class="btn btn-outline-secondary">Test Auth</button>
+      <button id="loggerBtn" class="btn btn-outline-secondary">
+        Test Logger
+      </button>
+      <button id="mailerBtn" class="btn btn-outline-secondary">
+        Test Mailer
+      </button>
+      <button id="GloggerBtn" class="btn btn-outline-secondary">
+        Test gRPC Log
+      </button>
+
+      <div
+        id="output"
+        class="mt-5"
+        style="outline: 1px solid silver; padding: 2em"
+      >
+        <span class="text-muted">Output shows here...</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h4 class="mt-5">Sent</h4>
+      <div class="mt-1" style="outline: 1px solid silver; padding: 2em">
+        <pre
+          id="payload"
+        ><span class="text-muted">Nothing sent yet...</span></pre>
+      </div>
+    </div>
+    <div class="col">
+      <h4 class="mt-5">Received</h4>
+      <div class="mt-1" style="outline: 1px solid silver; padding: 2em">
+        <pre
+          id="received"
+        ><span class="text-muted">Nothing received yet...</span></pre>
+      </div>
+    </div>
+  </div>
+</div>
+{{end}} {{define "js"}}
+<script>
+  // DOM
+  const OutputElem = document.getElementById("output");
+  const PayloadElem = document.getElementById("payload");
+  const ReceivedElem = document.getElementById("received");
+
+  const BrokerBtn = document.getElementById("brokerBtn");
+  const AuthBtn = document.getElementById("authBtn");
+  const LoggerBtn = document.getElementById("loggerBtn");
+  const GrpcLogBtn = document.getElementById("GloggerBtn");
+  const MailerBtn = document.getElementById("mailerBtn");
+
+  // Handlers
+  MailerBtn.addEventListener("click", () => {
+    const payload = {
+      action: "mail",
+      mail: {
+        from: "me@example.com",
+        to: "you@there.com",
+        subject: "Test email",
+        message: "Hello Go!",
+      },
+    };
+    SendRequest(payload);
+  });
+
+  LoggerBtn.addEventListener("click", () => {
+    const payload = {
+      action: "log",
+      log: {
+        name: "event",
+        data: "Some kind of log",
+      },
+    };
+    SendRequest(payload);
+  });
+  GrpcLogBtn.addEventListener("click", () => {
+    const payload = {
+      action: "log",
+      log: {
+        name: "event",
+        data: "Some kind of gRPC log",
+      },
+    };
+    SendRequest(payload, "http://localhost:8080/log-grpc");
+  });
+
+  AuthBtn.addEventListener("click", () => {
+    const payload = {
+      action: "auth",
+      auth: {
+        email: "admin@example.com",
+        password: "verysecret",
+      },
+    };
+    SendRequest(payload);
+  });
+
+  BrokerBtn.addEventListener("click", () =>
+    SendRequest({}, "http://localhost:8080")
+  );
+
+  // Sender
+  const SendRequest = async (payload, url) => {
+    try {
+      const res = await fetch(
+        encodeURI(url || "http://localhost:8080/handle"),
+        {
+          method: "POST",
+          body: payload && JSON.stringify(payload),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (!res.ok)
+        return (output.innerHTML += `<br/><br/>Error Code: <strong>${res.status}</strong>`);
+      const data = await res.json();
+      PayloadElem.innerHTML = JSON.stringify(payload, undefined, 4);
+      ReceivedElem.innerHTML = JSON.stringify(data, undefined, 4);
+
+      if (data.error)
+        return (output.innerHTML += `<br/><strong>Error:</strong> ${data.message}`);
+      output.innerHTML += `<br/><strong>Response from broker service</strong>: ${data.message}`;
+    } catch (err) {
+      output.innerHTML += `<br/><br/>Error: <strong>${err}</strong>`;
+    }
+  };
+</script>
+{{end}}

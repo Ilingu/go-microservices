@@ -1,0 +1,10 @@
+# DB
+/project/db-data
+
+# Services
+/mail-service/mailerApp
+/logger-service/loggerApp
+/listener-service/listenerApp
+/front-end/frontApp.exe
+/broker-service/brokerApp
+/authentication-service/authApp
