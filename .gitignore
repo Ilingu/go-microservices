@@ -6,5 +6,6 @@
 /logger-service/loggerApp
 /listener-service/listenerApp
 /front-end/frontApp.exe
+/front-end/frontEndApp
 /broker-service/brokerApp
 /authentication-service/authApp

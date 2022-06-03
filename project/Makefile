@@ -5,6 +5,7 @@ AUTH_BINARY=authApp
 LOGGER_BINARY=loggerApp
 MAILER_BINARY=mailerApp
 LISTENER_BINARY=listenerApp
+FRONTEND_BINARY=frontEndApp
 
 ## up: starts all containers in the background without forcing build
 up:
@@ -54,6 +55,12 @@ build_mailer:
 build_listener:
 	@echo Building listener binary...
 	chdir ..\listener-service && set GOOS=linux&& set GOARCH=amd64&& set CGO_ENABLED=0 && go build -o ${LISTENER_BINARY} .
+	@echo Done!
+
+## build_frontend: builds the frontend binary as a linux executable
+build_frontend:
+	@echo Building frontend binary...
+	chdir ..\front-end && set GOOS=linux&& set GOARCH=amd64&& set CGO_ENABLED=0 && go build -o ${FRONTEND_BINARY} ./cmd/web
 	@echo Done!
 
 ## build_front: builds the frone end binary
