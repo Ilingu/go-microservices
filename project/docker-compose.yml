@@ -1,5 +1,6 @@
 version: "3"
 
+# Only for dev, when prod use swarm.yml
 services:
   broker-service:
     build:

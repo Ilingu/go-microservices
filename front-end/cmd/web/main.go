@@ -41,6 +41,11 @@ func render(w http.ResponseWriter, t string) {
 		return
 	}
 
+	// var data struct {
+	// 	BrokerURL string
+	// }
+	// data.BrokerURL = os.Getenv("BROKER_URL") --> Go templating if we want to dynamically change the broker url, I'll skip it
+
 	if err := tmpl.Execute(w, nil); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

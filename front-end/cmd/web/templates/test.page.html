@@ -91,7 +91,7 @@
         data: "Some kind of gRPC log",
       },
     };
-    SendRequest(payload, "http://localhost:8080/log-grpc");
+    SendRequest(payload, "https://172.104.205.57:3000/log-grpc");
   });
 
   AuthBtn.addEventListener("click", () => {
@@ -106,14 +106,16 @@
   });
 
   BrokerBtn.addEventListener("click", () =>
-    SendRequest({}, "http://localhost:8080")
+    SendRequest({}, "https://172.104.205.57:3000")
   );
 
   // Sender
   const SendRequest = async (payload, url) => {
     try {
+      // Here it's backend because of swarm, when we run it on local pc to access Docker, we access "localhost:<port_define_on_docker>"
+      // On local swarm we use "backend" to access brokerapp which is map to localhost into the windows host file
       const res = await fetch(
-        encodeURI(url || "http://localhost:8080/handle"),
+        encodeURI(url || "https://172.104.205.57:3000/handle"),
         {
           method: "POST",
           body: payload && JSON.stringify(payload),

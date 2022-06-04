@@ -18,8 +18,9 @@
 - `docker swarm manager` --> Return cmd to exec to add a manager to the current swarm
 - `docker stack deploy -c swarm.yml myapp` --> Deploy
 - `docker service ls` --> See all the active services
+- `docker node ps` --> Current Node Info
 - `docker service scale myapp_xxx-service=3` --> Change number of services
 - `docker service scale myapp_xxx-service=0` --> Stop de service
 - `docker service update --image ilingu/xxx-service:1.0.1 myapp_xxx-service` --> Upgrade to New Version or Downgrade
-- `docker stack rm myapp` --> Remove app from swarm
+- `docker stack rm myapp` --> Stop app
 - `docker swarm leave --force` --> ⚡ Remove/Delete swarm server entirely
