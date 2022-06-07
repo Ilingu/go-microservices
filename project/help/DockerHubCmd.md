@@ -13,7 +13,7 @@
 
 # Swarm
 
-- `docker swarm init`
+- `docker swarm init` || `docker swarm init --advertise-addr <ip>`
 - `docker swarm worker` --> Return cmd to exec to add a worker to the current swarm
 - `docker swarm manager` --> Return cmd to exec to add a manager to the current swarm
 - `docker stack deploy -c swarm.yml myapp` --> Deploy
@@ -24,3 +24,5 @@
 - `docker service update --image ilingu/xxx-service:1.0.1 myapp_xxx-service` --> Upgrade to New Version or Downgrade
 - `docker stack rm myapp` --> Stop app
 - `docker swarm leave --force` --> ⚡ Remove/Delete swarm server entirely
+- `docker service logs -f appname` --> See logs
+- `docker exec -ti <container-id> sh` --> Access CLI (The inner of container)
