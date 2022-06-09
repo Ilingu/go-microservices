@@ -4,7 +4,7 @@
 
 `[DISCLAIMER]:` This app is not mine, it's from this [UDEMY COURSE](https://www.udemy.com/course/working-with-microservices-in-go/).
 
-The idea was initially to learn golang for web purpose, but I learn a lot of others things like **Docker, RabbitMQ (AMQP), Linux (WSL2), RPC/gRPC, Docker Swarm, Kubernetes, Make...** and most importantly `Golang`, How microservices works, How to create CRUD APP with JSON, Handling a router and a server, Working with go package and handling errors and how to structurate my projects, Reverse Proxy with Caddy. I also learn how to deploy all of this in the clear internet with Linode, managing my server...
+The idea was initially to learn golang for web purpose, but I learn a lot of others things like **Docker, RabbitMQ (AMQP), Linux (WSL2), RPC/gRPC, Docker Swarm, Kubernetes, Make, Testing...** and most importantly `Golang`, How microservices works, How to create CRUD APP with JSON, Handling a router and a server, Working with go package and handling errors and how to structurate my projects, Reverse Proxy with Caddy. I also learn how to deploy all of this in the clear internet with Linode, managing my server and test my _go_ code...
 
 Making this app taught me so much things in Backend development that I just couldn't not push it into my Github 😅.
 
